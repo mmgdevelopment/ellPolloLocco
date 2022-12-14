@@ -1,46 +1,61 @@
 class World {
     character = new Character();
     enemies = [
-        new Enemie(10),
-        new Enemie(200),
-        new Enemie(300),
-        new Enemie(400),
-        new Enemie(500),
+        new Enemie(),
+        new Enemie(),
+        new Enemie(),
+        new Enemie(),
+        new Enemie(),
+        new Enemie(),
+        new Enemie(),
+        new Enemie(),
+        new Enemie(),
+        new Enemie(),
     ]
-    backgrounds = [
-        new Background('../assets/img/3. Background/Layers/5. Water/D1.png'),
-        new Background('../assets/img/3. Background/Layers/3.Fondo 1/D1.png'),
-        new Background('../assets/img/3. Background/Layers/2. Floor/D1.png'),
-
-
+    backgroundObjects = [
+        new BackgroundObject('../assets/img/3. Background/Layers/5. Water/D1.png', 0),
+        new BackgroundObject('../assets/img/3. Background/Layers/3.Fondo 1/D1.png', 0),
+        new BackgroundObject('../assets/img/3. Background/Layers/2. Floor/D1.png', 0),
+        new BackgroundObject('../assets/img/3. Background/Layers/1. Light/1.png', 0),
+        new BackgroundObject('../assets/img/3. Background/Layers/5. Water/D2.png', 936),
+        new BackgroundObject('../assets/img/3. Background/Layers/3.Fondo 1/D2.png', 936),
+        new BackgroundObject('../assets/img/3. Background/Layers/2. Floor/D2.png', 936),
+        new BackgroundObject('../assets/img/3. Background/Layers/1. Light/2.png', 936),
     ]
     ctx;
     canvas;
 
     constructor(canvas) {
-        this.canvas = canvas;
-        canvas.width = 720 * 1.3
+
+        canvas.width = 1200 * 1.3
         canvas.height = 480 * 1.3
         this.ctx = canvas.getContext('2d');
+        this.canvas = canvas;
         this.draw()
     }
 
     draw() {
-        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        this.backgrounds.forEach(background => {
-            this.ctx.drawImage(background.img, background.x, background.y, background.width, background.height)
-        })
-
-        this.ctx.drawImage(this.character.img, this.character.x, this.character.y, this.character.width, this.character.height);
-        this.enemies.forEach(enemy => {
-            this.ctx.drawImage(enemy.img, enemy.x, enemy.y, enemy.width, enemy.height);
-        });
-
+        this.deleteAllObjectsFromMap();
+        this.addObjectsToMap(this.backgroundObjects);
+        this.addObjectsToMap(this.enemies);
+        this.addToMap(this.character)
         requestAnimationFrame(() => {
             this.draw();
         });
-
     }
 
+    deleteAllObjectsFromMap() {
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    }
 
+    addObjectsToMap(objects) {
+        objects.forEach(object => {
+            this.addToMap(object);
+        })
+
+    }
+    addToMap(mo) {
+        this.ctx.drawImage(mo.img, mo.x, mo.y, mo.width, mo.height);
+
+    }
 } 
