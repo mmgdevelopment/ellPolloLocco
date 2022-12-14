@@ -19,8 +19,8 @@ class World {
 
     constructor(canvas) {
         this.canvas = canvas;
-        canvas.width = 720
-        canvas.height = 480
+        canvas.width = 720 * 1.3
+        canvas.height = 480 * 1.3
         this.ctx = canvas.getContext('2d');
         this.draw()
     }
