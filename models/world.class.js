@@ -2,15 +2,6 @@ class World {
     character = new Character();
     enemies = [
         new Enemie(),
-        new Enemie(),
-        new Enemie(),
-        new Enemie(),
-        new Enemie(),
-        new Enemie(),
-        new Enemie(),
-        new Enemie(),
-        new Enemie(),
-        new Enemie(),
     ]
     backgroundObjects = [
         new BackgroundObject('../assets/img/3. Background/Layers/5. Water/D1.png', 0),
@@ -37,15 +28,18 @@ class World {
     ]
     ctx;
     canvas;
+    keyboard;
 
-    constructor(canvas) {
-
+    constructor(canvas, keyboard) {
         canvas.width = 1200 * 1.3
         canvas.height = 480 * 1.3
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
+        this.keyboard = keyboard;
         this.draw()
         this.animateBackground();
+        this.loadEnemies();
+        this.setWorld();
     }
 
     draw() {
@@ -56,8 +50,13 @@ class World {
         this.addToMap(this.character)
         requestAnimationFrame(() => {
             this.draw();
+            this.character.checkKeyBoard();
         });
 
+    }
+
+    setWorld() {
+        this.character.world = this;
     }
 
     deleteAllObjectsFromMap() {
@@ -81,5 +80,11 @@ class World {
                 object.x -= 0.1
             })
         }, 1000 / 60)
+    }
+
+    loadEnemies() {
+        setInterval(() => {
+            this.enemies.push(new Enemie)
+        }, 3500)
     }
 } 

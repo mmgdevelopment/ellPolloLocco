@@ -22,6 +22,7 @@ class Character extends MovableObject {
         ]
 
     currentImage = 0;
+    world;
 
     constructor() {
         super()
@@ -31,19 +32,22 @@ class Character extends MovableObject {
         this.y = 0;
         this.height = 450;
         this.width = 350;
-        this.animate();
+        this.animate(this.IMAGES_IDLE);
     }
 
-    animate() {
-        setInterval(() => {
-            let path = this.IMAGES_IDLE[this.currentImage];
-            this.img = this.imageCache[path]
-            if (this.currentImage < this.IMAGES_IDLE.length - 1) {
-                this.currentImage++;
-            } else {
-                this.currentImage = 0;
-            }
-        }, 150)
+    checkKeyBoard() {
+        if (this.world.keyboard.RIGHT == true) {
+            this.moveRight();
+        }
+        if (this.world.keyboard.LEFT == true) {
+            this.moveLeft();
+        }
+        if (this.world.keyboard.UP == true) {
+            this.moveUp();
+        }
+        if (this.world.keyboard.DOWN == true) {
+            this.moveDown();
+        }
 
     }
 

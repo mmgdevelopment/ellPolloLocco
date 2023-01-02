@@ -2,9 +2,30 @@ class Enemie extends MovableObject {
 
     constructor() {
         super().loadImage('../assets/img/2.Enemy/1.Puffer fish (3 color options)/1.Swim/1.swim1.png')
-        this.x = Math.random() * 1000;
-        this.y = Math.random() * 500;
+        this.loadImages(this.IMAGES_SWIM);
+        this.x = 1600;
+        this.y = (Math.random() * 500);
         this.height = 150;
         this.width = 120;
+        this.animate(this.IMAGES_SWIM);
+        this.swimToTheLeft()
     }
+    currentImage = 0;
+    speed = 1 + (Math.random()) / 2
+
+    IMAGES_SWIM = [
+        'assets/img/2.Enemy/1.Puffer fish (3 color options)/1.Swim/1.swim1.png',
+        'assets/img/2.Enemy/1.Puffer fish (3 color options)/1.Swim/1.swim2.png',
+        'assets/img/2.Enemy/1.Puffer fish (3 color options)/1.Swim/1.swim3.png',
+        'assets/img/2.Enemy/1.Puffer fish (3 color options)/1.Swim/1.swim4.png',
+        'assets/img/2.Enemy/1.Puffer fish (3 color options)/1.Swim/1.swim5.png',
+    ]
+
+    swimToTheLeft() {
+        setInterval(() => {
+            this.moveLeft(this.speed)
+        }, 1000 / 60)
+    }
+
+
 }
