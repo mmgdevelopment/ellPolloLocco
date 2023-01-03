@@ -47,10 +47,21 @@ class World {
         this.addObjectsToMap(this.backgroundObjects);
         this.addObjectsToMap(this.lightObjects);
         this.addObjectsToMap(this.enemies);
-        this.addToMap(this.character)
+        if (this.character.flipDirection) {
+            this.ctx.save();
+            this.ctx.translate(this.character.width, 0)
+            this.ctx.scale(-1, 1);
+            this.character.x = this.character.x * - 1;
+            this.addToMap(this.character);
+            this.character.x = this.character.x * - 1;
+            this.ctx.restore();
+        } else {
+            this.addToMap(this.character)
+        }
+
         requestAnimationFrame(() => {
             this.draw();
-            this.character.checkKeyBoard();
+            this.character.moveCharacter();
         });
 
     }

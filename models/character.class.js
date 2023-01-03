@@ -21,32 +21,83 @@ class Character extends MovableObject {
             '../assets/img/1.Sharkie/1.IDLE/18.png',
         ]
 
+    IMAGES_SWIM =
+        [
+            '../assets/img/1.Sharkie/3.Swim/1.png',
+            '../assets/img/1.Sharkie/3.Swim/2.png',
+            '../assets/img/1.Sharkie/3.Swim/3.png',
+            '../assets/img/1.Sharkie/3.Swim/4.png',
+            '../assets/img/1.Sharkie/3.Swim/5.png',
+            '../assets/img/1.Sharkie/3.Swim/6.png',
+        ]
+
     currentImage = 0;
     world;
+    flipDirection = false;
 
     constructor() {
         super()
         this.loadImage('../assets/img/1.Sharkie/1.IDLE/1.png');
-        this.loadImages(this.IMAGES_IDLE)
+        this.loadImage('../assets/img/1.Sharkie/3.Swim/1.png');
+        this.loadImages(this.IMAGES_IDLE);
+        this.loadImages(this.IMAGES_SWIM);
         this.x = 0;
         this.y = 0;
         this.height = 450;
         this.width = 350;
-        this.animate(this.IMAGES_IDLE);
+        this.animate();
     }
 
-    checkKeyBoard() {
+
+
+    animate() {
+        let imageSet
+        setInterval(() => {
+
+            if (this.world.keyboard.RIGHT ||
+                this.world.keyboard.LEFT ||
+                this.world.keyboard.UP ||
+                this.world.keyboard.DOWN
+            ) {
+                imageSet = this.IMAGES_SWIM;
+            } else {
+                imageSet = this.IMAGES_IDLE;
+            }
+            if (this.currentImage < imageSet.length - 1) {
+                this.currentImage++;
+            } else {
+                this.currentImage = 0;
+            }
+            this.img = this.imageCache[imageSet[this.currentImage]]
+        }, 150)
+
+    }
+
+
+    moveCharacter() {
         if (this.world.keyboard.RIGHT == true) {
-            this.moveRight();
+            if (this.x < 1255) {
+                this.moveRight();
+                this.flipDirection = false;
+            }
         }
         if (this.world.keyboard.LEFT == true) {
-            this.moveLeft();
+            if (this.x > 0) {
+                this.moveLeft();
+                this.flipDirection = true;
+            }
+
         }
         if (this.world.keyboard.UP == true) {
-            this.moveUp();
+            if (this.y > -210) {
+                this.moveUp();
+            }
+
         }
         if (this.world.keyboard.DOWN == true) {
-            this.moveDown();
+            if (this.y < 280) {
+                this.moveDown();
+            }
         }
 
     }

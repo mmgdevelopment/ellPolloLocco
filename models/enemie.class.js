@@ -7,11 +7,11 @@ class Enemie extends MovableObject {
         this.y = (Math.random() * 500);
         this.height = 150;
         this.width = 120;
-        this.animate(this.IMAGES_SWIM);
+        this.animate();
         this.swimToTheLeft()
     }
     currentImage = 0;
-    speed = 1 + (Math.random()) / 2
+    speed = 0.5 + (Math.random())
 
     IMAGES_SWIM = [
         'assets/img/2.Enemy/1.Puffer fish (3 color options)/1.Swim/1.swim1.png',
@@ -27,5 +27,19 @@ class Enemie extends MovableObject {
         }, 1000 / 60)
     }
 
+
+    animate() {
+        this.currentImage = 0;
+        return setInterval(() => {
+            let path = this.IMAGES_SWIM[this.currentImage];
+            this.img = this.imageCache[path]
+            if (this.currentImage < this.IMAGES_SWIM.length - 1) {
+                this.currentImage++;
+            } else {
+                this.currentImage = 0;
+            }
+        }, 150)
+
+    }
 
 }
