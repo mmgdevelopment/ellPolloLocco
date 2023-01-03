@@ -1,8 +1,16 @@
 class World {
     character = new Character();
     enemies = [
-        new Enemie(),
+        new Enemie(1400),
+        new Enemie(1600),
+        new Enemie(1800),
+        new Enemie(2250),
+        new Enemie(2750),
+        new Enemie(3000),
+        new Enemie(3250),
+        new Enemie(3750),
     ]
+
     backgroundObjects = [
         new BackgroundObject('../assets/img/3. Background/Layers/5. Water/D1.png', 0),
         new BackgroundObject('../assets/img/3. Background/Layers/3.Fondo 1/D1.png', 0),
@@ -11,6 +19,14 @@ class World {
         new BackgroundObject('../assets/img/3. Background/Layers/5. Water/D2.png', 936),
         new BackgroundObject('../assets/img/3. Background/Layers/3.Fondo 1/D2.png', 936),
         new BackgroundObject('../assets/img/3. Background/Layers/2. Floor/D2.png', 936),
+
+        new BackgroundObject('../assets/img/3. Background/Layers/5. Water/D1.png', 936 * 2),
+        new BackgroundObject('../assets/img/3. Background/Layers/3.Fondo 1/D1.png', 936 * 2),
+        new BackgroundObject('../assets/img/3. Background/Layers/2. Floor/D1.png', 936 * 2),
+
+        new BackgroundObject('../assets/img/3. Background/Layers/5. Water/D2.png', 936 * 3),
+        new BackgroundObject('../assets/img/3. Background/Layers/3.Fondo 1/D2.png', 936 * 3),
+        new BackgroundObject('../assets/img/3. Background/Layers/2. Floor/D2.png', 936 * 3),
     ]
 
     lightObjects = [
@@ -29,6 +45,7 @@ class World {
     ctx;
     canvas;
     keyboard;
+    camera_x;
 
     constructor(canvas, keyboard) {
         canvas.width = 1200 * 1.3
@@ -44,6 +61,7 @@ class World {
 
     draw() {
         this.deleteAllObjectsFromMap();
+        this.ctx.translate(this.camera_x, 0);
         this.addObjectsToMap(this.backgroundObjects);
         this.addObjectsToMap(this.lightObjects);
         this.addObjectsToMap(this.enemies);
@@ -58,10 +76,9 @@ class World {
         } else {
             this.addToMap(this.character)
         }
-
+        this.ctx.translate(-this.camera_x, 0)
         requestAnimationFrame(() => {
             this.draw();
-            this.character.moveCharacter();
         });
 
     }
@@ -96,6 +113,6 @@ class World {
     loadEnemies() {
         setInterval(() => {
             this.enemies.push(new Enemie)
-        }, 3500)
+        }, 5500)
     }
 } 

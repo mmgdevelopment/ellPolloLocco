@@ -69,36 +69,44 @@ class Character extends MovableObject {
                 this.currentImage = 0;
             }
             this.img = this.imageCache[imageSet[this.currentImage]]
-        }, 150)
+        }, 150);
+
+        setInterval(() => {
+            if (this.world.keyboard.RIGHT == true) {
+                if (this.x < 3450) {
+                    this.moveRight();
+                    this.flipDirection = false;
+                }
+            }
+            if (this.world.keyboard.LEFT == true) {
+                if (this.x > 0) {
+                    this.moveLeft();
+                    this.flipDirection = true;
+                }
+
+            }
+            if (this.world.keyboard.UP == true) {
+                if (this.y > -210) {
+                    this.moveUp();
+                }
+
+            }
+            if (this.world.keyboard.DOWN == true) {
+                if (this.y < 280) {
+                    this.moveDown();
+                }
+            }
+            if (this.x < 2180) {
+                this.world.camera_x = - this.x;
+            }
+
+        }, 1000 / 60)
 
     }
 
 
     moveCharacter() {
-        if (this.world.keyboard.RIGHT == true) {
-            if (this.x < 1255) {
-                this.moveRight();
-                this.flipDirection = false;
-            }
-        }
-        if (this.world.keyboard.LEFT == true) {
-            if (this.x > 0) {
-                this.moveLeft();
-                this.flipDirection = true;
-            }
 
-        }
-        if (this.world.keyboard.UP == true) {
-            if (this.y > -210) {
-                this.moveUp();
-            }
-
-        }
-        if (this.world.keyboard.DOWN == true) {
-            if (this.y < 280) {
-                this.moveDown();
-            }
-        }
 
     }
 
