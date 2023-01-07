@@ -12,34 +12,34 @@ class World {
     ]
 
     backgroundObjects = [
-        new BackgroundObject('../assets/img/3. Background/Layers/5. Water/D1.png', 0),
-        new BackgroundObject('../assets/img/3. Background/Layers/3.Fondo 1/D1.png', 0),
-        new BackgroundObject('../assets/img/3. Background/Layers/2. Floor/D1.png', 0),
+        new BackgroundObject('assets/img/3. Background/Layers/5. Water/D1.png', 0),
+        new BackgroundObject('assets/img/3. Background/Layers/3.Fondo 1/D1.png', 0),
+        new BackgroundObject('assets/img/3. Background/Layers/2. Floor/D1.png', 0),
 
-        new BackgroundObject('../assets/img/3. Background/Layers/5. Water/D2.png', 936),
-        new BackgroundObject('../assets/img/3. Background/Layers/3.Fondo 1/D2.png', 936),
-        new BackgroundObject('../assets/img/3. Background/Layers/2. Floor/D2.png', 936),
+        new BackgroundObject('assets/img/3. Background/Layers/5. Water/D2.png', 936),
+        new BackgroundObject('assets/img/3. Background/Layers/3.Fondo 1/D2.png', 936),
+        new BackgroundObject('assets/img/3. Background/Layers/2. Floor/D2.png', 936),
 
-        new BackgroundObject('../assets/img/3. Background/Layers/5. Water/D1.png', 936 * 2),
-        new BackgroundObject('../assets/img/3. Background/Layers/3.Fondo 1/D1.png', 936 * 2),
-        new BackgroundObject('../assets/img/3. Background/Layers/2. Floor/D1.png', 936 * 2),
+        new BackgroundObject('assets/img/3. Background/Layers/5. Water/D1.png', 936 * 2),
+        new BackgroundObject('assets/img/3. Background/Layers/3.Fondo 1/D1.png', 936 * 2),
+        new BackgroundObject('assets/img/3. Background/Layers/2. Floor/D1.png', 936 * 2),
 
-        new BackgroundObject('../assets/img/3. Background/Layers/5. Water/D2.png', 936 * 3),
-        new BackgroundObject('../assets/img/3. Background/Layers/3.Fondo 1/D2.png', 936 * 3),
-        new BackgroundObject('../assets/img/3. Background/Layers/2. Floor/D2.png', 936 * 3),
+        new BackgroundObject('assets/img/3. Background/Layers/5. Water/D2.png', 936 * 3),
+        new BackgroundObject('assets/img/3. Background/Layers/3.Fondo 1/D2.png', 936 * 3),
+        new BackgroundObject('assets/img/3. Background/Layers/2. Floor/D2.png', 936 * 3),
     ]
 
     lightObjects = [
 
-        new BackgroundObject('../assets/img/3. Background/Layers/1. Light/2.png', 0),
-        new BackgroundObject('../assets/img/3. Background/Layers/1. Light/1.png', 0),
-        new BackgroundObject('../assets/img/3. Background/Layers/1. Light/2.png', 936),
-        new BackgroundObject('../assets/img/3. Background/Layers/1. Light/1.png', 936),
-        new BackgroundObject('../assets/img/3. Background/Layers/1. Light/2.png', 936 * 2),
-        new BackgroundObject('../assets/img/3. Background/Layers/1. Light/1.png', 936 * 2),
-        new BackgroundObject('../assets/img/3. Background/Layers/1. Light/2.png', 936 * 3),
-        new BackgroundObject('../assets/img/3. Background/Layers/1. Light/1.png', 936 * 3),
-        new BackgroundObject('../assets/img/3. Background/Layers/1. Light/2.png', 936 * 4),
+        new BackgroundObject('assets/img/3. Background/Layers/1. Light/2.png', 0),
+        new BackgroundObject('assets/img/3. Background/Layers/1. Light/1.png', 0),
+        new BackgroundObject('assets/img/3. Background/Layers/1. Light/2.png', 936),
+        new BackgroundObject('assets/img/3. Background/Layers/1. Light/1.png', 936),
+        new BackgroundObject('assets/img/3. Background/Layers/1. Light/2.png', 936 * 2),
+        new BackgroundObject('assets/img/3. Background/Layers/1. Light/1.png', 936 * 2),
+        new BackgroundObject('assets/img/3. Background/Layers/1. Light/2.png', 936 * 3),
+        new BackgroundObject('assets/img/3. Background/Layers/1. Light/1.png', 936 * 3),
+        new BackgroundObject('assets/img/3. Background/Layers/1. Light/2.png', 936 * 4),
 
     ]
     ctx;
@@ -112,7 +112,10 @@ class World {
 
     loadEnemies() {
         setInterval(() => {
-            this.enemies.push(new Enemie)
-        }, 5500)
+            if (this.character.x < 2180) {
+                this.enemies.push(new Enemie)
+            }
+
+        }, 5000)
     }
 } 
