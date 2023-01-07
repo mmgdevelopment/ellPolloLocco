@@ -42,6 +42,43 @@ class World {
         new BackgroundObject('assets/img/3. Background/Layers/1. Light/2.png', 936 * 4),
 
     ]
+    IMAGES_LIFEBAR = [
+        'assets/img/4. Marcadores/Purple/0_ .png',
+        'assets/img/4. Marcadores/Purple/20__1.png',
+        'assets/img/4. Marcadores/Purple/40_ .png',
+        'assets/img/4. Marcadores/Purple/60_ .png',
+        'assets/img/4. Marcadores/Purple/80_ .png',
+        'assets/img/4. Marcadores/Purple/100_ .png',
+    ]
+
+    IMAGES_COINBAR = [
+        'assets/img/4. Marcadores/Purple/0_ _1.png',
+        'assets/img/4. Marcadores/Purple/20_ .png',
+        'assets/img/4. Marcadores/Purple/40_ _1.png',
+        'assets/img/4. Marcadores/Purple/60_ _1.png',
+        'assets/img/4. Marcadores/Purple/80_ _1.png',
+        'assets/img/4. Marcadores/Purple/100__1.png',
+    ]
+
+    IMAGES_POISONBAR = [
+        'assets/img/4. Marcadores/Purple/0_.png',
+        'assets/img/4. Marcadores/Purple/20_.png',
+        'assets/img/4. Marcadores/Purple/40_.png',
+        'assets/img/4. Marcadores/Purple/60_.png',
+        'assets/img/4. Marcadores/Purple/80_.png',
+        'assets/img/4. Marcadores/Purple/100_.png',
+
+    ]
+
+    lifeBar = new StatusBar(this.IMAGES_LIFEBAR, this.camera_x, 15)
+    coinBar = new StatusBar(this.IMAGES_COINBAR, this.camera_x, 60)
+    poisonBar = new StatusBar(this.IMAGES_POISONBAR, this.camera_x, 105)
+
+
+
+
+
+
     ctx;
     canvas;
     keyboard;
@@ -65,6 +102,10 @@ class World {
         this.addObjectsToMap(this.backgroundObjects);
         this.addObjectsToMap(this.lightObjects);
         this.addObjectsToMap(this.enemies);
+        this.addToMap(this.lifeBar);
+        this.addToMap(this.coinBar);
+        this.addToMap(this.poisonBar);
+
         if (this.character.flipDirection) {
             this.ctx.save();
             this.ctx.translate(this.character.width, 0)
@@ -77,6 +118,7 @@ class World {
             this.addToMap(this.character)
         }
         this.ctx.translate(-this.camera_x, 0)
+
         requestAnimationFrame(() => {
             this.draw();
         });
@@ -85,6 +127,9 @@ class World {
 
     setWorld() {
         this.character.world = this;
+        this.lifeBar.world = this;
+        this.coinBar.world = this;
+        this.poisonBar.world = this;
     }
 
     deleteAllObjectsFromMap() {

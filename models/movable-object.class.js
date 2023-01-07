@@ -1,27 +1,10 @@
-class MovableObject {
-    x
-    y
-    img
-    imageCache = {}
-    width
-    height
+class MovableObject extends DrawableObject {
+
     speed = 5
 
     constructor() {
+        super()
 
-    }
-
-    loadImage(path) {
-        this.img = new Image();
-        this.img.src = path;
-    }
-
-    loadImages(array) {
-        array.forEach(path => {
-            let img = new Image();
-            img.src = path;
-            this.imageCache[path] = img;
-        });
     }
 
     moveLeft() {
@@ -32,6 +15,7 @@ class MovableObject {
         this.x += this.speed
 
     }
+
     moveUp() {
         this.y -= this.speed
     }
@@ -40,12 +24,4 @@ class MovableObject {
         this.y += this.speed
 
     }
-
-    jump() {
-        console.log('Jump');
-
-    }
-
-
-
 }

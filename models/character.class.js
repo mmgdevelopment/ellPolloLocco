@@ -31,6 +31,18 @@ class Character extends MovableObject {
             'assets/img/1.Sharkie/3.Swim/6.png',
         ]
 
+    IMAGES_ATTACK =
+        [
+            'assets/img/1.Sharkie/4.Attack/Fin slap/1.png',
+            // 'assets/img/1.Sharkie/4.Attack/Fin slap/2.png',
+            // 'assets/img/1.Sharkie/4.Attack/Fin slap/3.png',
+            'assets/img/1.Sharkie/4.Attack/Fin slap/4.png',
+            'assets/img/1.Sharkie/4.Attack/Fin slap/5.png',
+            'assets/img/1.Sharkie/4.Attack/Fin slap/6.png',
+            'assets/img/1.Sharkie/4.Attack/Fin slap/7.png',
+            'assets/img/1.Sharkie/4.Attack/Fin slap/8.png',
+        ]
+
     currentImage = 0;
     world;
     flipDirection = false;
@@ -38,9 +50,9 @@ class Character extends MovableObject {
     constructor() {
         super()
         this.loadImage('../assets/img/1.Sharkie/1.IDLE/1.png');
-        this.loadImage('../assets/img/1.Sharkie/3.Swim/1.png');
         this.loadImages(this.IMAGES_IDLE);
         this.loadImages(this.IMAGES_SWIM);
+        this.loadImages(this.IMAGES_ATTACK);
         this.x = 0;
         this.y = 0;
         this.height = 450;
@@ -53,8 +65,13 @@ class Character extends MovableObject {
     animate() {
         let imageSet
         setInterval(() => {
-
-            if (this.world.keyboard.RIGHT ||
+            if (this.world.keyboard.D) {
+                if (imageSet != this.IMAGES_ATTACK) {
+                    this.currentImage = 0;
+                }
+                imageSet = this.IMAGES_ATTACK;
+            } else if (
+                this.world.keyboard.RIGHT ||
                 this.world.keyboard.LEFT ||
                 this.world.keyboard.UP ||
                 this.world.keyboard.DOWN
@@ -103,11 +120,4 @@ class Character extends MovableObject {
         }, 1000 / 60)
 
     }
-
-
-    moveCharacter() {
-
-
-    }
-
 }
