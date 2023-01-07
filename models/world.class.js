@@ -11,6 +11,16 @@ class World {
         new Enemie(3750),
     ]
 
+    coins = [
+        new Coin(500, 700),
+        new Coin(1000, 400),
+        new Coin(1500, 350),
+        new Coin(2000, 450),
+        new Coin(2500, 600),
+        new Coin(3000, 480),
+        new Coin(3500, 500),
+    ]
+
     backgroundObjects = [
         new BackgroundObject('assets/img/3. Background/Layers/5. Water/D1.png', 0),
         new BackgroundObject('assets/img/3. Background/Layers/3.Fondo 1/D1.png', 0),
@@ -70,9 +80,9 @@ class World {
 
     ]
 
-    lifeBar = new StatusBar(this.IMAGES_LIFEBAR, 15)
-    coinBar = new StatusBar(this.IMAGES_COINBAR, 60)
-    poisonBar = new StatusBar(this.IMAGES_POISONBAR, 105)
+    lifeBar = new StatusBar(this.IMAGES_LIFEBAR, 15, 100)
+    coinBar = new StatusBar(this.IMAGES_COINBAR, 60, 0)
+    poisonBar = new StatusBar(this.IMAGES_POISONBAR, 105, 100)
 
 
 
@@ -98,31 +108,25 @@ class World {
 
     draw() {
         this.deleteAllObjectsFromMap();
-
-
         this.ctx.translate(this.camera_x, 0);
         this.lifeBar.x = (- this.camera_x) + 15
         this.coinBar.x = (- this.camera_x) + 15
         this.poisonBar.x = (- this.camera_x) + 15
+
         this.addObjectsToMap(this.backgroundObjects);
         this.addObjectsToMap(this.lightObjects);
+        this.addObjectsToMap(this.coins);
         this.addObjectsToMap(this.enemies);
+        this.addCharacterToMap();
+
         this.addToMap(this.lifeBar);
         this.addToMap(this.coinBar);
         this.addToMap(this.poisonBar);
 
-        if (this.character.flipDirection) {
-            this.ctx.save();
-            this.ctx.translate(this.character.width, 0)
-            this.ctx.scale(-1, 1);
-            this.character.x = this.character.x * - 1;
-            this.addToMap(this.character);
-            this.character.x = this.character.x * - 1;
-            this.ctx.restore();
-        } else {
-            this.addToMap(this.character)
-        }
+
+
         this.ctx.translate(-this.camera_x, 0)
+
         requestAnimationFrame(() => {
             this.draw();
         });
@@ -149,6 +153,20 @@ class World {
     addToMap(mo) {
         this.ctx.drawImage(mo.img, mo.x, mo.y, mo.width, mo.height);
 
+    }
+
+    addCharacterToMap() {
+        if (this.character.flipDirection) {
+            this.ctx.save();
+            this.ctx.translate(this.character.width, 0)
+            this.ctx.scale(-1, 1);
+            this.character.x = this.character.x * - 1;
+            this.addToMap(this.character);
+            this.character.x = this.character.x * - 1;
+            this.ctx.restore();
+        } else {
+            this.addToMap(this.character)
+        }
     }
 
     animateBackground() {
