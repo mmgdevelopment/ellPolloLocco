@@ -70,9 +70,9 @@ class World {
 
     ]
 
-    lifeBar = new StatusBar(this.IMAGES_LIFEBAR, this.camera_x, 15)
-    coinBar = new StatusBar(this.IMAGES_COINBAR, this.camera_x, 60)
-    poisonBar = new StatusBar(this.IMAGES_POISONBAR, this.camera_x, 105)
+    lifeBar = new StatusBar(this.IMAGES_LIFEBAR, 15)
+    coinBar = new StatusBar(this.IMAGES_COINBAR, 60)
+    poisonBar = new StatusBar(this.IMAGES_POISONBAR, 105)
 
 
 
@@ -98,7 +98,12 @@ class World {
 
     draw() {
         this.deleteAllObjectsFromMap();
+
+
         this.ctx.translate(this.camera_x, 0);
+        this.lifeBar.x = (- this.camera_x) + 15
+        this.coinBar.x = (- this.camera_x) + 15
+        this.poisonBar.x = (- this.camera_x) + 15
         this.addObjectsToMap(this.backgroundObjects);
         this.addObjectsToMap(this.lightObjects);
         this.addObjectsToMap(this.enemies);
@@ -118,7 +123,6 @@ class World {
             this.addToMap(this.character)
         }
         this.ctx.translate(-this.camera_x, 0)
-
         requestAnimationFrame(() => {
             this.draw();
         });

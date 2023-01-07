@@ -5,7 +5,7 @@ class StatusBar extends DrawableObject {
     imageSet;
 
 
-    constructor(imageSet, x, y) {
+    constructor(imageSet, y) {
         super();
         this.imageSet = imageSet;
         this.loadImage(imageSet[0]);
@@ -17,8 +17,6 @@ class StatusBar extends DrawableObject {
 
     animate() {
         setInterval(() => {
-            this.x = (- this.world.camera_x) + 15
-
             if (this.percentage >= 80) {
                 this.loadImage(this.imageSet[5]);
             } else if (this.percentage >= 60) {
