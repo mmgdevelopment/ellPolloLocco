@@ -11,14 +11,17 @@ class World {
         new Enemie(3750),
     ]
 
-    coins = [
+    dropables = [
         new Coin(500, 700),
+        new Poison(500, 250),
         new Coin(1000, 400),
+        new Poison(1000, 350),
         new Coin(1500, 350),
         new Coin(2000, 450),
         new Coin(2500, 600),
         new Coin(3000, 480),
         new Coin(3500, 500),
+        new Poison(3500, 100),
     ]
 
     backgroundObjects = [
@@ -82,7 +85,7 @@ class World {
 
     lifeBar = new StatusBar(this.IMAGES_LIFEBAR, 15, 100)
     coinBar = new StatusBar(this.IMAGES_COINBAR, 60, 0)
-    poisonBar = new StatusBar(this.IMAGES_POISONBAR, 105, 100)
+    poisonBar = new StatusBar(this.IMAGES_POISONBAR, 105, 0)
 
 
 
@@ -115,7 +118,7 @@ class World {
 
         this.addObjectsToMap(this.backgroundObjects);
         this.addObjectsToMap(this.lightObjects);
-        this.addObjectsToMap(this.coins);
+        this.addObjectsToMap(this.dropables);
         this.addObjectsToMap(this.enemies);
         this.addCharacterToMap();
 
