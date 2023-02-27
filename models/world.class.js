@@ -1,4 +1,14 @@
 class World {
+    ctx;
+    canvas;
+    keyboard;
+    camera_x;
+
+    finalEnemyIntroduced = false;
+    characterOnEndPosition = false;
+
+    developmentMode = true;
+
     character = new Character();
     finalEnemy = new FinalEnemy();
     enemies = [
@@ -88,13 +98,7 @@ class World {
     coinBar = new StatusBar(this.IMAGES_COINBAR, 60, 0)
     poisonBar = new StatusBar(this.IMAGES_POISONBAR, 105, 0)
 
-    ctx;
-    canvas;
-    keyboard;
-    camera_x;
 
-    finalEnemyIntroduced = false;
-    characterOnEndPosition = false;
 
     constructor(canvas, keyboard) {
         canvas.width = 1200 * 1.3
@@ -166,7 +170,17 @@ class World {
     }
     addToMap(mo) {
         this.ctx.drawImage(mo.img, mo.x, mo.y, mo.width, mo.height);
+        this.drawRectangles(mo);
+    }
 
+    drawRectangles(mo) {
+        if (this.developmentMode) {
+            this.ctx.beginPath();
+            this.ctx.lineWidth = '2';
+            this.ctx.strokeStyle = 'red';
+            this.ctx.rect(mo.x, mo.y, mo.width, mo.height);
+            this.ctx.stroke();
+        }
     }
 
     addCharacterToMap() {
