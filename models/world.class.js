@@ -7,7 +7,7 @@ class World {
     finalEnemyIntroduced = false;
     characterOnEndPosition = false;
 
-    developmentMode = true;
+    developmentMode = false;
 
     character = new Character();
     finalEnemy = new FinalEnemy();
@@ -152,6 +152,9 @@ class World {
         this.coinBar.world = this;
         this.poisonBar.world = this;
         this.finalEnemy.world = this;
+        this.dropables.forEach((dropapble) => {
+            dropapble.world = this;
+        })
     }
 
     introduceFinalEnemy() {
