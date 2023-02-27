@@ -1,5 +1,6 @@
 class World {
     character = new Character();
+    finalEnemy = new FinalEnemy();
     enemies = [
         new Enemie(1400),
         new Enemie(1600),
@@ -87,15 +88,13 @@ class World {
     coinBar = new StatusBar(this.IMAGES_COINBAR, 60, 0)
     poisonBar = new StatusBar(this.IMAGES_POISONBAR, 105, 0)
 
-
-
-
-
-
     ctx;
     canvas;
     keyboard;
     camera_x;
+
+    finalEnemyIntroduced = false;
+    characterOnEndPosition = false;
 
     constructor(canvas, keyboard) {
         canvas.width = 1200 * 1.3
@@ -107,6 +106,7 @@ class World {
         this.animateBackground();
         this.loadEnemies();
         this.setWorld();
+        this.introduceFinalEnemy();
     }
 
     draw() {
@@ -126,6 +126,8 @@ class World {
         this.addToMap(this.coinBar);
         this.addToMap(this.poisonBar);
 
+        this.addToMap(this.finalEnemy);
+
 
 
         this.ctx.translate(-this.camera_x, 0)
@@ -141,6 +143,15 @@ class World {
         this.lifeBar.world = this;
         this.coinBar.world = this;
         this.poisonBar.world = this;
+        this.finalEnemy.world = this;
+    }
+
+    introduceFinalEnemy() {
+        setInterval(() => {
+            if (this.character.x > 2500) {
+                this.characterOnEndPosition = true;
+            }
+        }, 500)
     }
 
     deleteAllObjectsFromMap() {

@@ -39,7 +39,5 @@ class Enemie extends MovableObject {
                 this.currentImage = 0;
             }
         }, 150)
-
     }
-
 }

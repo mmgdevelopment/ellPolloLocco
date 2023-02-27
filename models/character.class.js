@@ -93,6 +93,7 @@ class Character extends MovableObject {
                 if (this.x < 3450) {
                     this.moveRight();
                     this.flipDirection = false;
+                    console.log(this.x)
                 }
             }
             if (this.world.keyboard.LEFT == true) {
