@@ -123,7 +123,10 @@ class World {
         this.addObjectsToMap(this.backgroundObjects);
         this.addObjectsToMap(this.lightObjects);
         this.addObjectsToMap(this.dropables);
+        this.drawrectangleForArray(this.dropables);
         this.addObjectsToMap(this.enemies);
+        this.drawrectangleForArray(this.enemies);
+
         this.addCharacterToMap();
 
         this.addToMap(this.lifeBar);
@@ -131,6 +134,7 @@ class World {
         this.addToMap(this.poisonBar);
 
         this.addToMap(this.finalEnemy);
+        this.drawRectangle(this.finalEnemy);
 
 
 
@@ -170,10 +174,14 @@ class World {
     }
     addToMap(mo) {
         this.ctx.drawImage(mo.img, mo.x, mo.y, mo.width, mo.height);
-        this.drawRectangles(mo);
     }
 
-    drawRectangles(mo) {
+    drawrectangleForArray(array) {
+        array.forEach((object) => {
+            this.drawRectangle(object)
+        })
+    }
+    drawRectangle(mo) {
         if (this.developmentMode) {
             this.ctx.beginPath();
             this.ctx.lineWidth = '2';
@@ -190,10 +198,12 @@ class World {
             this.ctx.scale(-1, 1);
             this.character.x = this.character.x * - 1;
             this.addToMap(this.character);
+            this.drawRectangle(this.character)
             this.character.x = this.character.x * - 1;
             this.ctx.restore();
         } else {
             this.addToMap(this.character)
+            this.drawRectangle(this.character)
         }
     }
 
