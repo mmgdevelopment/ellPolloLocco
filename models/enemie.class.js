@@ -50,7 +50,7 @@ class Enemie extends MovableObject {
                 this.world.character.x + 280 > this.x &&
                 this.world.character.x + 50 < this.x + this.width &&
                 this.world.character.y + 350 > this.y &&
-                this.world.character.y + 200 < this.y + this.height
+                this.world.character.y + 200 < this.y + (this.height - 50)
             ) {
                 this.world.lifeBar.percentage -= 1
                 this.world.character.isHurtElectric = true;

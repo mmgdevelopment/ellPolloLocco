@@ -49,6 +49,20 @@ class Character extends MovableObject {
             'assets/img/1.Sharkie/5.Hurt/2.Electric shock/o2.png'
         ]
 
+    IMAGES_DEAD_ELECTRIC =
+        [
+            'assets/img/1.Sharkie/6.dead/2.Electro_shock/1.png',
+            'assets/img/1.Sharkie/6.dead/2.Electro_shock/2.png',
+            'assets/img/1.Sharkie/6.dead/2.Electro_shock/3.png',
+            'assets/img/1.Sharkie/6.dead/2.Electro_shock/4.png',
+            'assets/img/1.Sharkie/6.dead/2.Electro_shock/5.png',
+            'assets/img/1.Sharkie/6.dead/2.Electro_shock/6.png',
+            'assets/img/1.Sharkie/6.dead/2.Electro_shock/7.png',
+            'assets/img/1.Sharkie/6.dead/2.Electro_shock/8.png',
+            'assets/img/1.Sharkie/6.dead/2.Electro_shock/9.png',
+            'assets/img/1.Sharkie/6.dead/2.Electro_shock/10.png'
+        ]
+
     currentImage = 0;
     world;
     flipDirection = false;
@@ -61,6 +75,7 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_SWIM);
         this.loadImages(this.IMAGES_ATTACK);
         this.loadImages(this.IMAGES_HURT_ELECTRIC);
+        this.loadImages(this.IMAGES_DEAD_ELECTRIC);
         this.x = 0;
         this.y = 0;
         this.height = 450;
@@ -74,7 +89,12 @@ class Character extends MovableObject {
         let imageSet
         setInterval(() => {
 
-            if (this.isHurtElectric) {
+            if (this.isDead()) {
+                if (imageSet != this.IMAGES_DEAD_ELECTRIC) {
+                    this.currentImage = 0;
+                }
+                imageSet = this.IMAGES_DEAD_ELECTRIC;
+            } else if (this.isHurtElectric) {
                 if (imageSet != this.IMAGES_HURT_ELECTRIC) {
                     this.currentImage = 0;
                 }
@@ -95,6 +115,8 @@ class Character extends MovableObject {
             } else {
                 if (imageSet == this.IMAGES_HURT_ELECTRIC) {
                     this.isHurtElectric = false
+                } else if (imageSet == this.IMAGES_DEAD_ELECTRIC) {
+                    return // GAME OVER
                 } else {
                     this.currentImage = 0;
                 }
@@ -144,5 +166,9 @@ class Character extends MovableObject {
             this.world.keyboard.LEFT ||
             this.world.keyboard.UP ||
             this.world.keyboard.DOWN
+    }
+
+    isDead() {
+        return this.world.lifeBar.percentage <= 0
     }
 }
