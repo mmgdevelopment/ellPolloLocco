@@ -43,9 +43,16 @@ class Character extends MovableObject {
             'assets/img/1.Sharkie/4.Attack/Fin slap/8.png',
         ]
 
+    IMAGES_HURT_ELECTRIC =
+        [
+            'assets/img/1.Sharkie/5.Hurt/2.Electric shock/o1.png',
+            'assets/img/1.Sharkie/5.Hurt/2.Electric shock/o2.png'
+        ]
+
     currentImage = 0;
     world;
     flipDirection = false;
+    isHurtElectric = false;
 
     constructor() {
         super()
@@ -53,6 +60,7 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_IDLE);
         this.loadImages(this.IMAGES_SWIM);
         this.loadImages(this.IMAGES_ATTACK);
+        this.loadImages(this.IMAGES_HURT_ELECTRIC);
         this.x = 0;
         this.y = 0;
         this.height = 450;
@@ -65,26 +73,34 @@ class Character extends MovableObject {
     animate() {
         let imageSet
         setInterval(() => {
-            if (this.world.keyboard.D) {
+
+            if (this.isHurtElectric) {
+                if (imageSet != this.IMAGES_HURT_ELECTRIC) {
+                    this.currentImage = 0;
+                }
+                imageSet = this.IMAGES_HURT_ELECTRIC;
+            } else if (this.world.keyboard.D) {
                 if (imageSet != this.IMAGES_ATTACK) {
                     this.currentImage = 0;
                 }
                 imageSet = this.IMAGES_ATTACK;
-            } else if (
-                this.world.keyboard.RIGHT ||
-                this.world.keyboard.LEFT ||
-                this.world.keyboard.UP ||
-                this.world.keyboard.DOWN
-            ) {
+            } else if (this.isMoving()) {
                 imageSet = this.IMAGES_SWIM;
             } else {
                 imageSet = this.IMAGES_IDLE;
             }
+
             if (this.currentImage < imageSet.length - 1) {
                 this.currentImage++;
             } else {
-                this.currentImage = 0;
+                if (imageSet == this.IMAGES_HURT_ELECTRIC) {
+                    this.isHurtElectric = false
+                } else {
+                    this.currentImage = 0;
+                }
+
             }
+
             this.img = this.imageCache[imageSet[this.currentImage]]
         }, 150);
 
@@ -119,5 +135,14 @@ class Character extends MovableObject {
 
         }, 1000 / 60)
 
+
+
+    }
+
+    isMoving() {
+        return this.world.keyboard.RIGHT ||
+            this.world.keyboard.LEFT ||
+            this.world.keyboard.UP ||
+            this.world.keyboard.DOWN
     }
 }

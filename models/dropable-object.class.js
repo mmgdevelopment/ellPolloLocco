@@ -33,10 +33,10 @@ class DropableObject extends DrawableObject {
                 this.world.character.y + 200 < this.y + this.height
             ) {
                 if (this instanceof Coin) {
-                    this.world.coinBar.percentage += 10;
+                    this.world.coinBar.percentage += 15;
                 }
                 if (this instanceof Poison) {
-                    this.world.poisonBar.percentage += 10;
+                    this.world.poisonBar.percentage += 15;
                 }
                 this.x = 80000 //// ??? better solution ???
             }

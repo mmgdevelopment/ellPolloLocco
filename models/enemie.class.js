@@ -1,15 +1,5 @@
 class Enemie extends MovableObject {
-
-    constructor(x = 3800) {
-        super().loadImage('../assets/img/2.Enemy/1.Puffer fish (3 color options)/1.Swim/1.swim1.png')
-        this.loadImages(this.IMAGES_SWIM);
-        this.x = x;
-        this.y = (Math.random() * 500);
-        this.height = 150;
-        this.width = 120;
-        this.animate();
-        this.swimToTheLeft()
-    }
+    world;
     currentImage = 0;
     speed = 0.5 + (Math.random())
 
@@ -20,6 +10,19 @@ class Enemie extends MovableObject {
         'assets/img/2.Enemy/1.Puffer fish (3 color options)/1.Swim/1.swim4.png',
         'assets/img/2.Enemy/1.Puffer fish (3 color options)/1.Swim/1.swim5.png',
     ]
+
+    constructor(x = 3800) {
+        super().loadImage('../assets/img/2.Enemy/1.Puffer fish (3 color options)/1.Swim/1.swim1.png')
+        this.loadImages(this.IMAGES_SWIM);
+        this.x = x;
+        this.y = (Math.random() * 500);
+        this.height = 150;
+        this.width = 120;
+        this.animate();
+        this.swimToTheLeft()
+        this.checkforHits()
+    }
+
 
     swimToTheLeft() {
         setInterval(() => {
@@ -40,4 +43,20 @@ class Enemie extends MovableObject {
             }
         }, 150)
     }
+
+    checkforHits() {
+        setInterval(() => {
+            if (
+                this.world.character.x + 280 > this.x &&
+                this.world.character.x + 50 < this.x + this.width &&
+                this.world.character.y + 350 > this.y &&
+                this.world.character.y + 200 < this.y + this.height
+            ) {
+                this.world.lifeBar.percentage -= 1
+                this.world.character.isHurtElectric = true;
+            }
+
+        }, 150)
+    }
+
 }

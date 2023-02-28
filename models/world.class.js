@@ -7,7 +7,7 @@ class World {
     finalEnemyIntroduced = false;
     characterOnEndPosition = false;
 
-    developmentMode = false;
+    developmentMode = true;
 
     character = new Character();
     finalEnemy = new FinalEnemy();
@@ -155,6 +155,9 @@ class World {
         this.dropables.forEach((dropapble) => {
             dropapble.world = this;
         })
+        this.enemies.forEach((enemie) => {
+            enemie.world = this;
+        })
     }
 
     introduceFinalEnemy() {
@@ -222,6 +225,7 @@ class World {
         setInterval(() => {
             if (this.character.x < 2180) {
                 this.enemies.push(new Enemie)
+                this.setWorld();
             }
 
         }, 5000)
