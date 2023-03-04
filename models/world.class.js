@@ -3,14 +3,19 @@ class World {
     canvas;
     keyboard;
     camera_x;
-
+    startGameRequest = false;
+    gameStarted = false;
+    gameOver = false;
     finalEnemyIntroduced = false;
     characterOnEndPosition = false;
 
-    developmentMode = true;
+    developmentMode = false;
 
     character = new Character();
     finalEnemy = new FinalEnemy();
+    gameOverAnimation = new GameOver();
+    startScreenAnimation = new StartScreen();
+
     enemies = [
         new Enemie(1400),
         new Enemie(1600),
@@ -107,18 +112,33 @@ class World {
         this.canvas = canvas;
         this.keyboard = keyboard;
         this.draw()
-        this.animateBackground();
-        this.loadEnemies();
         this.setWorld();
-        this.introduceFinalEnemy();
+        this.startGame();
+
     }
 
+    startGame() {
+        const interval = setInterval(() => {
+            if (this.startGameRequest && !this.gameStarted) {
+                this.animateBackground();
+                this.loadEnemies();
+                this.introduceFinalEnemy();
+                this.gameStarted = true
+                clearInterval(interval)
+            }
+        }, 150)
+    }
+
+
+
     draw() {
+
         this.deleteAllObjectsFromMap();
         this.ctx.translate(this.camera_x, 0);
         this.lifeBar.x = (- this.camera_x) + 15
         this.coinBar.x = (- this.camera_x) + 15
         this.poisonBar.x = (- this.camera_x) + 15
+        this.gameOverAnimation.x = (-this.camera_x) + 250
 
         this.addObjectsToMap(this.backgroundObjects);
         this.addObjectsToMap(this.lightObjects);
@@ -137,8 +157,14 @@ class World {
         this.drawRectangle(this.finalEnemy);
 
 
-
         this.ctx.translate(-this.camera_x, 0)
+
+        if (this.gameOver) {
+            this.addToMap(this.gameOverAnimation);
+        }
+        if (!this.gameStarted) {
+            this.addToMap(this.startScreenAnimation);
+        }
 
         requestAnimationFrame(() => {
             this.draw();
@@ -191,11 +217,12 @@ class World {
         if (this.developmentMode) {
             this.ctx.beginPath();
             this.ctx.lineWidth = '2';
-            this.ctx.strokeStyle = 'red';
+            this.ctx.strokeStyle = 'black';
             this.ctx.rect(mo.x, mo.y, mo.width, mo.height);
             this.ctx.stroke();
         }
     }
+
 
     addCharacterToMap() {
         if (this.character.flipDirection) {
@@ -227,7 +254,6 @@ class World {
                 this.enemies.push(new Enemie)
                 this.setWorld();
             }
-
         }, 5000)
     }
 } 

@@ -6,6 +6,7 @@ class DrawableObject {
     imageCache = {}
     width
     height
+    currentImage
 
     constructor() {
 
@@ -22,6 +23,19 @@ class DrawableObject {
             img.src = path;
             this.imageCache[path] = img;
         });
+    }
+
+    animateImages(images) {
+        this.currentImage = 0;
+        return setInterval(() => {
+            let path = images[this.currentImage];
+            this.img = this.imageCache[path]
+            if (this.currentImage < images.length - 1) {
+                this.currentImage++;
+            } else {
+                this.currentImage = 0;
+            }
+        }, 150)
     }
 
 

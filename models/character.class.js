@@ -99,11 +99,15 @@ class Character extends MovableObject {
                     this.currentImage = 0;
                 }
                 imageSet = this.IMAGES_HURT_ELECTRIC;
-            } else if (this.world.keyboard.D) {
+            } else if (this.world.keyboard.D || this.isAttacking) {
                 if (imageSet != this.IMAGES_ATTACK) {
                     this.currentImage = 0;
                 }
+                this.isAttacking = true
                 imageSet = this.IMAGES_ATTACK;
+                if (this.currentImage == this.IMAGES_ATTACK.length - 1) {
+                    this.isAttacking = false;
+                }
             } else if (this.isMoving()) {
                 imageSet = this.IMAGES_SWIM;
             } else {
@@ -116,7 +120,7 @@ class Character extends MovableObject {
                 if (imageSet == this.IMAGES_HURT_ELECTRIC) {
                     this.isHurtElectric = false
                 } else if (imageSet == this.IMAGES_DEAD_ELECTRIC) {
-                    return // GAME OVER
+                    this.world.gameOver = true
                 } else {
                     this.currentImage = 0;
                 }
@@ -127,6 +131,9 @@ class Character extends MovableObject {
         }, 150);
 
         setInterval(() => {
+            if (this.isHurtElectric || this.world.isDead || !this.world.gameStarted) {
+                return
+            }
             if (this.world.keyboard.RIGHT == true) {
                 if (this.x < 3450) {
                     this.moveRight();
@@ -135,6 +142,9 @@ class Character extends MovableObject {
             }
             if (this.world.keyboard.LEFT == true) {
                 if (this.x > 0) {
+                    if (this.world.finalEnemyIntroduced && this.x < 2180) {
+                        return
+                    }
                     this.moveLeft();
                     this.flipDirection = true;
                 }
@@ -160,6 +170,8 @@ class Character extends MovableObject {
 
 
     }
+
+
 
     isMoving() {
         return this.world.keyboard.RIGHT ||
